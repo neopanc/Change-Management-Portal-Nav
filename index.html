@@ -119,3 +119,29 @@ resultDiv.textContent = "Change created successfully: " + fakeResponse.number;
 
 </body>
 </html>
+...
+<!-- your HTML form ends here -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const btnNormal = document.getElementById("btnNormal");
+    const btnStandard = document.getElementById("btnStandard");
+    const form = document.getElementById("changeForm");
+    const changeTypeInput = document.getElementById("changeType");
+
+    btnNormal.addEventListener("click", () => {
+        changeTypeInput.value = "normal";
+        form.style.display = "block";
+    });
+
+    btnStandard.addEventListener("click", () => {
+        changeTypeInput.value = "standard";
+        form.style.display = "block";
+    });
+});
+</script>
+
+</body>
+</html>
+
+
