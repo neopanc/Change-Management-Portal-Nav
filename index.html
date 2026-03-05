@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ServiceNow Change Portal</title>
+  <title>Change Management Portal</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
     h1 { margin-bottom: 20px; }
@@ -13,6 +13,7 @@
     #result { margin-top: 20px; font-weight: bold; }
   </style>
 </head>
+
 <body>
 
   <h1>ServiceNow Change Request Portal</h1>
@@ -57,91 +58,81 @@
   <div id="result"></div>
 
   <script>
-    const btnNormal = document.getElementById('btnNormal');
-    const btnStandard = document.getElementById('btnStandard');
-    const form = document.getElementById('changeForm');
-    const resultDiv = document.getElementById('result');
+    document.addEventListener("DOMContentLoaded", function () {
 
-    btnNormal.onclick = () => {
-      document.getElementById('changeType').value = 'normal';
-      form.style.display = 'block';
-    };
+      const btnNormal = document.getElementById("btnNormal");
+      const btnStandard = document.getElementById("btnStandard");
+      const form = document.getElementById("changeForm");
+      const changeTypeInput = document.getElementById("changeType");
+      const resultDiv = document.getElementById("result");
 
-    btnStandard.onclick = () => {
-      document.getElementById('changeType').value = 'standard';
-      form.style.display = 'block';
-    };
+      // Show form for Normal Change
+      btnNormal.addEventListener("click", () => {
+        changeTypeInput.value = "normal";
+        form.style.display = "block";
+        resultDiv.textContent = "";
+      });
 
-    // Component search placeholder
-    document.getElementById('componentSearch').addEventListener('input', () => {
-      // Later: call your ServiceNow component search API
-      console.log("Component search typed:", document.getElementById('componentSearch').value);
-    });
+      // Show form for Standard Change
+      btnStandard.addEventListener("click", () => {
+        changeTypeInput.value = "standard";
+        form.style.display = "block";
+        resultDiv.textContent = "";
+      });
 
-    // Submit handler
-    
-    // Simulate network delay
-await new Promise(resolve => setTimeout(resolve, 1000));
+      // Fake component list for testing
+      const fakeComponents = [
+        { sys_id: "1", name: "Database Server" },
+        { sys_id: "2", name: "Web Server" },
+        { sys_id: "3", name: "API Gateway" }
+      ];
 
-// Fake backend response
-const fakeResponse = {
-  number: "CHG" + Math.floor(Math.random() * 900000 + 100000),
-  sys_id: "FAKE_SYS_ID_" + Math.floor(Math.random() * 999999)
-};
+      // Component search simulation
+      document.getElementById("componentSearch").addEventListener("input", () => {
+        const q = document.getElementById("componentSearch").value.toLowerCase();
+        const results = fakeComponents.filter(c => c.name.toLowerCase().includes(q));
 
-// Show result on screen
-resultDiv.textContent = "Change created successfully: " + fakeResponse.number;
+        const componentSelect = document.getElementById("componentSelect");
+        componentSelect.innerHTML = "<option value=''>-- Select --</option>";
 
-    
-    
-    //form.addEventListener('submit', async (e) => {
-      //e.preventDefault();
-      //resultDiv.textContent = "Submitting...";
+        results.forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = c.sys_id;
+          opt.textContent = c.name;
+          componentSelect.appendChild(opt);
+        });
+      });
 
-      //const payload = {
-        //type: document.getElementById('changeType').value,
-        //coordinated_group: document.getElementById('coordinatedGroup').value,
-        //start_date: document.getElementById('startDate').value,
-        //end_date: document.getElementById('endDate').value,
-        //short_description: document.getElementById('shortDescription').value,
-        //description: document.getElementById('description').value,
-        //business_justification: document.getElementById('businessJustification').value,
-        //cmdb_ci: document.getElementById('componentSelect').value
-      };
+      // Form submit handler with fake backend
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        resultDiv.textContent = "Submitting...";
 
-      console.log("Payload ready to send:", payload);
+        const payload = {
+          type: document.getElementById("changeType").value,
+          coordinated_group: document.getElementById("coordinatedGroup").value,
+          start_date: document.getElementById("startDate").value,
+          end_date: document.getElementById("endDate").value,
+          short_description: document.getElementById("shortDescription").value,
+          description: document.getElementById("description").value,
+          business_justification: document.getElementById("businessJustification").value,
+          cmdb_ci: document.getElementById("componentSelect").value
+        };
 
-      // IMPORTANT:
-      // You will later replace this with a secure API call to your ServiceNow Scripted REST API.
-      resultDiv.textContent = "Form captured. API call will be added next.";
+        // Simulate backend delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Fake response
+        const fakeResponse = {
+          number: "CHG" + Math.floor(Math.random() * 900000 + 100000),
+          sys_id: "FAKE_SYS_ID_" + Math.floor(Math.random() * 999999)
+        };
+
+        resultDiv.textContent = "Change created successfully: " + fakeResponse.number;
+      });
+
     });
   </script>
 
 </body>
 </html>
-...
-<!-- your HTML form ends here -->
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const btnNormal = document.getElementById("btnNormal");
-    const btnStandard = document.getElementById("btnStandard");
-    const form = document.getElementById("changeForm");
-    const changeTypeInput = document.getElementById("changeType");
-
-    btnNormal.addEventListener("click", () => {
-        changeTypeInput.value = "normal";
-        form.style.display = "block";
-    });
-
-    btnStandard.addEventListener("click", () => {
-        changeTypeInput.value = "standard";
-        form.style.display = "block";
-    });
-});
-</script>
-
-</body>
-</html>
-
-
