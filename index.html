@@ -66,73 +66,24 @@
       const changeTypeInput = document.getElementById("changeType");
       const resultDiv = document.getElementById("result");
 
-      // Show form for Normal Change
       btnNormal.addEventListener("click", () => {
         changeTypeInput.value = "normal";
         form.style.display = "block";
         resultDiv.textContent = "";
       });
 
-      // Show form for Standard Change
       btnStandard.addEventListener("click", () => {
         changeTypeInput.value = "standard";
         form.style.display = "block";
         resultDiv.textContent = "";
       });
 
-      // Fake component list for testing
       const fakeComponents = [
         { sys_id: "1", name: "Database Server" },
         { sys_id: "2", name: "Web Server" },
         { sys_id: "3", name: "API Gateway" }
       ];
 
-      // Component search simulation
       document.getElementById("componentSearch").addEventListener("input", () => {
         const q = document.getElementById("componentSearch").value.toLowerCase();
-        const results = fakeComponents.filter(c => c.name.toLowerCase().includes(q));
-
-        const componentSelect = document.getElementById("componentSelect");
-        componentSelect.innerHTML = "<option value=''>-- Select --</option>";
-
-        results.forEach(c => {
-          const opt = document.createElement("option");
-          opt.value = c.sys_id;
-          opt.textContent = c.name;
-          componentSelect.appendChild(opt);
-        });
-      });
-
-      // Form submit handler with fake backend
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        resultDiv.textContent = "Submitting...";
-
-        const payload = {
-          type: document.getElementById("changeType").value,
-          coordinated_group: document.getElementById("coordinatedGroup").value,
-          start_date: document.getElementById("startDate").value,
-          end_date: document.getElementById("endDate").value,
-          short_description: document.getElementById("shortDescription").value,
-          description: document.getElementById("description").value,
-          business_justification: document.getElementById("businessJustification").value,
-          cmdb_ci: document.getElementById("componentSelect").value
-        };
-
-        // Simulate backend delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Fake response
-        const fakeResponse = {
-          number: "CHG" + Math.floor(Math.random() * 900000 + 100000),
-          sys_id: "FAKE_SYS_ID_" + Math.floor(Math.random() * 999999)
-        };
-
-        resultDiv.textContent = "Change created successfully: " + fakeResponse.number;
-      });
-
-    });
-  </script>
-
-</body>
-</html>
+        const
